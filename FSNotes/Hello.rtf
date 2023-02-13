@@ -1,0 +1,349 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red93\green108\blue121;\red255\green255\blue255;\red0\green0\blue0;
+\red155\green35\blue147;\red11\green79\blue121;\red57\green0\blue160;\red15\green104\blue160;\red50\green109\blue116;
+\red108\green54\blue169;\red28\green70\blue74;\red74\green85\blue96;\red28\green0\blue207;\red196\green26\blue22;
+}
+{\*\expandedcolortbl;;\csgenericrgb\c36526\c42188\c47515;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c0\c0\c0\c85000;
+\csgenericrgb\c60759\c13753\c57628;\csgenericrgb\c4314\c30980\c47451;\csgenericrgb\c22454\c0\c62803;\csgenericrgb\c5882\c40784\c62745;\csgenericrgb\c19418\c42935\c45455;
+\csgenericrgb\c42190\c21278\c66379;\csgenericrgb\c10981\c27276\c28869;\csgenericrgb\c29020\c33333\c37647;\csgenericrgb\c11000\c0\c81000;\csgenericrgb\c77000\c10200\c8600;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww13440\viewh7800\viewkind0
+\deftab593
+\pard\tx593\pardeftab593\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 //\cf4 \
+\cf2 //  TextViewController.swift\cf4 \
+\cf2 //  FSNotes\cf4 \
+\cf2 //\cf4 \
+\cf2 //  Created by sergey on 13.02.2023.\cf4 \
+\cf2 //\cf4 \
+\
+
+\f1\b \cf5 import
+\f0\b0 \cf4  UIKit\
+
+\f1\b \cf5 import
+\f0\b0 \cf4  PhotosUI\
+\
+
+\f1\b \cf5 class
+\f0\b0 \cf4  \cf6 TextViewController\cf4 : \cf7 UIViewController\cf4  \{\
+    \
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf8 folderName\cf4 : \cf7 String\cf4 ?\
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf8 noteName\cf4 : \cf7 String\cf4 ?\
+    
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf8 fileContents\cf4 : \cf7 NSAttributedString\cf4  \{\
+        
+\f1\b \cf5 get
+\f0\b0 \cf4  \{\
+            
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  folderName = 
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 folderName\cf4 , 
+\f1\b \cf5 let
+\f0\b0 \cf4  noteName = 
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 noteName\cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+                
+\f1\b \cf5 return
+\f0\b0 \cf4  .\cf10 init\cf4 ()\
+            \}\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4  \cf11 DocumentsModel\cf4 .\cf9 readAttr\cf4 (\cf9 from\cf4 : noteName ,\cf9 in\cf4 : folderName)\
+        \}\
+        
+\f1\b \cf5 set
+\f0\b0 \cf4  \{\
+            
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  folderName = 
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 folderName\cf4 , 
+\f1\b \cf5 let
+\f0\b0 \cf4  noteName = 
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 noteName\cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+                
+\f1\b \cf5 return
+\f0\b0 \cf4 \
+            \}\
+            \cf11 DocumentsModel\cf4 .\cf9 writeAttr\cf4 (\cf9 text\cf4 : \cf10 newValue\cf4 , \cf9 to\cf4 : noteName, \cf9 in\cf4 : folderName)\
+        \}\
+    \}\
+    \
+    
+\f1\b \cf5 override
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 viewDidLoad\cf4 () \{\
+        
+\f1\b \cf5 super
+\f0\b0 \cf4 .\cf10 viewDidLoad\cf4 ()\
+        \
+        \cf2 // Do any additional setup after loading the view.\cf4 \
+        \cf9 configure\cf4 ()\
+    \}\
+    \
+    
+\f1\b \cf5 @IBOutlet
+\f0\b0 \cf4  
+\f1\b \cf5 weak
+\f0\b0 \cf4  
+\f1\b \cf5 var
+\f0\b0 \cf4  \cf8 textView\cf4 : \cf7 UITextView\cf4 !\
+    \
+    \cf2 //
+\f1\b \cf12 MARK: IBActions
+\f0\b0 \cf4 \
+    
+\f1\b \cf5 @IBAction
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 makeSmaller\cf4 (\cf8 _\cf4  sender: 
+\f1\b \cf5 Any
+\f0\b0 \cf4 ) \{\
+        
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  font = \cf9 textView\cf4 .\cf10 font\cf4 ,\
+              font.\cf10 pointSize\cf4  > \cf13 12\cf4  + \cf13 2\cf4 \
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4 \
+        \}\
+        \cf9 textView\cf4 .\cf10 font\cf4  = font.\cf10 withSize\cf4 (font.\cf10 pointSize\cf4 -\cf13 2\cf4 )\
+    \}\
+    
+\f1\b \cf5 @IBAction
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 makeLarger\cf4 (\cf8 _\cf4  sender: 
+\f1\b \cf5 Any
+\f0\b0 \cf4 ) \{\
+        
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  font = \cf9 textView\cf4 .\cf10 font\cf4 \
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4 \
+        \}\
+        \cf9 textView\cf4 .\cf10 font\cf4  = font.\cf10 withSize\cf4 (font.\cf10 pointSize\cf4 +\cf13 2\cf4 )\
+    \}\
+    
+\f1\b \cf5 @IBAction
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 changeFont\cf4 (\cf8 _\cf4  sender: 
+\f1\b \cf5 Any
+\f0\b0 \cf4 ) \{\
+        \cf9 showFontPicker\cf4 (sender)\
+    \}\
+    \
+    \cf2 //
+\f1\b \cf12 MARK: Methods
+\f0\b0 \cf4 \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 configure\cf4 () \{\
+        \cf9 textView\cf4 .\cf10 attributedText\cf4  = \cf9 fileContents\cf4 \
+        \cf9 textView\cf4 .\cf10 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        \cf9 textView\cf4 .\cf10 allowsEditingTextAttributes\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        \cf9 textView\cf4 .\cf10 typingAttributes\cf4  = [\
+            .\cf10 font\cf4 :\cf7 UIFont\cf4 .\cf10 systemFont\cf4 (\cf10 ofSize\cf4 : \cf13 22\cf4 ),\
+        ]\
+        \
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  toolBar = \cf7 UIToolbar\cf4 (\cf7 frame\cf4 : \cf7 CGRect\cf4 (\cf10 x\cf4 : \cf13 0\cf4 , \cf10 y\cf4 : \cf13 0\cf4 , \cf10 width\cf4 : \cf9 textView\cf4 .\cf10 frame\cf4 .\cf10 size\cf4 .\cf10 width\cf4 , \cf10 height\cf4 : \cf13 44\cf4 ))\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  attachmentButton = \cf7 UIBarButtonItem\cf4 (\
+            \cf10 image\cf4 : \cf7 UIImage\cf4 (\cf10 systemName\cf4 : \cf14 "paperclip"\cf4 ),\
+            \cf10 style\cf4 : .\cf10 plain\cf4 ,\
+            \cf10 target\cf4 : 
+\f1\b \cf5 self
+\f0\b0 \cf4 ,\
+            \cf10 action\cf4 : 
+\f1\b \cf5 #selector
+\f0\b0 \cf4 (\cf9 imagePicker\cf4 ))\
+        toolBar.\cf10 items\cf4  = [attachmentButton]\
+        \cf9 textView\cf4 .\cf10 inputAccessoryView\cf4  = toolBar\
+    \}\
+\}\
+\
+
+\f1\b \cf5 extension
+\f0\b0 \cf4  \cf6 TextViewController\cf4 : \cf7 UITextViewDelegate\cf4  \{\
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 textViewDidEndEditing\cf4 (\cf8 _\cf4  textView: \cf7 UITextView\cf4 ) \{\
+        
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 fileContents\cf4  = textView.\cf10 attributedText\cf4 \
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 addImage\cf4 (\cf8 _\cf4  results: [\cf7 PHPickerResult\cf4 ]) \{\
+        results.\cf10 forEach\cf4  \{ result 
+\f1\b \cf5 in
+\f0\b0 \cf4 \
+            result.\cf10 itemProvider\cf4 .\cf10 loadObject\cf4 (\cf10 ofClass\cf4 : \cf7 UIImage\cf4 .
+\f1\b \cf5 self
+\f0\b0 \cf4 ) \{ reading, error 
+\f1\b \cf5 in
+\f0\b0 \cf4 \
+                
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  image = reading 
+\f1\b \cf5 as
+\f0\b0 \cf4 ? \cf7 UIImage\cf4 , error == 
+\f1\b \cf5 nil
+\f0\b0 \cf4  
+\f1\b \cf5 else
+\f0\b0 \cf4  \{ 
+\f1\b \cf5 return
+\f0\b0 \cf4  \}\
+                DispatchQueue.\cf10 main\cf4 .\cf10 async\cf4  \{\
+                    
+\f1\b \cf5 let
+\f0\b0 \cf4  scaleFactor = 
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 textView\cf4 .\cf10 frame\cf4 .\cf10 width\cf4 /
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 textView\cf4 .\cf10 font\cf4 !.\cf10 pointSize\cf4 \
+                    
+\f1\b \cf5 let
+\f0\b0 \cf4  att = \cf7 NSTextAttachment\cf4 ()\
+                    att.\cf10 image\cf4  = \cf7 UIImage\cf4 (\cf10 cgImage\cf4 : image.\cf10 cgImage\cf4 !, \cf10 scale\cf4 : image.\cf10 scale\cf4 *scaleFactor, \cf10 orientation\cf4 : .\cf10 up\cf4 )\
+                    
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 textView\cf4 .\cf10 textStorage\cf4 .\cf10 insert\cf4 (\cf7 NSAttributedString\cf4 (\cf7 attachment\cf4 : att), \cf10 at\cf4 :
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 textView\cf4 .\cf10 textStorage\cf4 .\cf10 length\cf4 )\
+                    
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 fileContents\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf9 textView\cf4 .\cf10 attributedText\cf4 \
+                \}\
+            \}\
+        \}\
+    \}\
+\}\
+\
+
+\f1\b \cf5 extension
+\f0\b0 \cf4  \cf6 TextViewController\cf4 : \cf7 UIFontPickerViewControllerDelegate\cf4  \{\
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 showFontPicker\cf4 (\cf8 _\cf4  sender: 
+\f1\b \cf5 Any
+\f0\b0 \cf4 ) \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  fontConfig = \cf7 UIFontPickerViewController\cf4 .\cf7 Configuration\cf4 ()\
+        fontConfig.\cf10 includeFaces\cf4  = 
+\f1\b \cf5 true
+\f0\b0 \cf4 \
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  fontPicker = \cf7 UIFontPickerViewController\cf4 (\cf10 configuration\cf4 : fontConfig)\
+        fontPicker.\cf10 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 present\cf4 (fontPicker, \cf10 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 , \cf10 completion\cf4 : 
+\f1\b \cf5 nil
+\f0\b0 \cf4 )\
+    \}\
+    \
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 fontPickerViewControllerDidPickFont\cf4 (\cf8 _\cf4  viewController: \cf7 UIFontPickerViewController\cf4 ) \{\
+        
+\f1\b \cf5 guard
+\f0\b0 \cf4  
+\f1\b \cf5 let
+\f0\b0 \cf4  font = \cf9 textView\cf4 .\cf10 font\cf4 , 
+\f1\b \cf5 let
+\f0\b0 \cf4  newFont = viewController.\cf10 selectedFontDescriptor\cf4 \
+        
+\f1\b \cf5 else
+\f0\b0 \cf4  \{\
+            
+\f1\b \cf5 return
+\f0\b0 \cf4 \
+        \}\
+        \cf9 textView\cf4 .\cf10 font\cf4  = .\cf10 init\cf4 (\cf10 descriptor\cf4 : newFont, \cf10 size\cf4 : font.\cf10 pointSize\cf4 )\
+    \}\
+\}\
+\
+
+\f1\b \cf5 extension
+\f0\b0 \cf4  \cf6 TextViewController\cf4 : \cf7 PHPickerViewControllerDelegate\cf4  \{\
+    
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 picker\cf4 (\cf8 _\cf4  picker: \cf7 PHPickerViewController\cf4 , \cf8 didFinishPicking\cf4  results: [\cf7 PHPickerResult\cf4 ]) \{\
+        picker.\cf10 dismiss\cf4 (\cf10 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+        \cf9 addImage\cf4 (results)\
+    \}\
+    \
+    
+\f1\b \cf5 @objc
+\f0\b0 \cf4  
+\f1\b \cf5 func
+\f0\b0 \cf4  \cf8 imagePicker\cf4 () \{\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  configuration = \cf7 PHPickerConfiguration\cf4 (\cf10 photoLibrary\cf4 : .\cf10 shared\cf4 ())\
+        
+\f1\b \cf5 let
+\f0\b0 \cf4  picker = \cf7 PHPickerViewController\cf4 (\cf10 configuration\cf4 : configuration)\
+        picker.\cf10 delegate\cf4  = 
+\f1\b \cf5 self
+\f0\b0 \cf4 \
+        
+\f1\b \cf5 self
+\f0\b0 \cf4 .\cf10 present\cf4 (picker, \cf10 animated\cf4 : 
+\f1\b \cf5 true
+\f0\b0 \cf4 )\
+    \}\
+\}\
+}
